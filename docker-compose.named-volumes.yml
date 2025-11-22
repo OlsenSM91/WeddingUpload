@@ -1,0 +1,77 @@
+# This alternative compose file uses Docker-managed named volumes
+# instead of bind mounts. Named volumes provide:
+#   - Better performance on Windows/Mac (no filesystem translation overhead)
+#   - More portable across different systems
+#   - Managed lifecycle by Docker
+#   - Automatic permission handling
+#
+# Trade-offs:
+#   - Files not directly visible on host filesystem
+#   - Need docker commands to backup/inspect
+#   - Slightly more complex to migrate
+#
+# To use this file:
+#   docker-compose -f docker-compose.named-volumes.yml up -d
+
+services:
+  wedding-uploader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wedding-uploader
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+    volumes:
+      # Named volumes - managed by Docker
+      # Files persist in Docker's internal storage
+      # Location on host: /var/lib/docker/volumes/ (Linux)
+      #                   Docker Desktop VM (Windows/Mac)
+      - wedding-uploads:/app/uploads
+      - wedding-thumbnails:/app/thumbnails
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/')"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+
+# Define named volumes
+volumes:
+  wedding-uploads:
+    driver: local
+    # Optional: Customize volume settings
+    # driver_opts:
+    #   type: none
+    #   device: /path/to/custom/location
+    #   o: bind
+
+  wedding-thumbnails:
+    driver: local
+
+# Useful commands for named volumes:
+#
+# List volumes:
+#   docker volume ls
+#
+# Inspect volume location:
+#   docker volume inspect wedding-uploads
+#   docker volume inspect wedding-thumbnails
+#
+# Backup a volume:
+#   docker run --rm -v wedding-uploads:/data -v $(pwd):/backup ubuntu tar czf /backup/uploads-backup.tar.gz -C /data .
+#
+# Restore a volume:
+#   docker run --rm -v wedding-uploads:/data -v $(pwd):/backup ubuntu tar xzf /backup/uploads-backup.tar.gz -C /data
+#
+# Copy files from volume to host:
+#   docker cp wedding-uploader:/app/uploads ./uploads-copy
+#
+# Copy files from host to volume:
+#   docker cp ./uploads-copy/. wedding-uploader:/app/uploads
+#
+# Remove volumes (CAUTION - deletes all data):
+#   docker-compose -f docker-compose.named-volumes.yml down -v

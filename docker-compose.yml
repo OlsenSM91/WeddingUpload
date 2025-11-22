@@ -1,0 +1,35 @@
+services:
+  wedding-uploader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wedding-uploader
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+      # You can add more environment variables here or use .env file
+    volumes:
+      # PERSISTENT STORAGE - Bind mounts to host filesystem
+      # These directories will persist even when the container is:
+      # - Stopped (docker-compose stop)
+      # - Removed (docker-compose down)
+      # - Rebuilt (docker-compose build)
+      # - Updated (docker pull/build new image)
+      #
+      # Files are stored on your host machine at:
+      #   - ./uploads (wedding photos/videos)
+      #   - ./thumbnails (generated thumbnail images)
+      #
+      # To backup: Simply copy the ./uploads and ./thumbnails folders
+      # To restore: Place files back in these folders before starting container
+      - ./uploads:/app/uploads
+      - ./thumbnails:/app/thumbnails
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/')"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
