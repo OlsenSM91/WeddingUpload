@@ -1,5 +1,7 @@
 # Wedding Gallery Uploader
 
+<img width="1261" height="1268" alt="Screenshot 2025-11-22 075042" src="https://github.com/user-attachments/assets/3b1d6b9b-307e-491d-84df-b248db140298" />
+
 A beautiful, secure, and easy-to-deploy web application for collecting and sharing wedding photos and videos. Perfect for allowing wedding guests to upload and view memories from your special day in a centralized gallery.
 
 ## Features
@@ -58,7 +60,7 @@ The fastest way to get started:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/wedding-uploader.git
+git clone https://github.com/OlsenSM91/WeddingUpload.git
 cd wedding-uploader
 
 # Start the application
@@ -692,31 +694,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ## License
 
-This project is licensed under the MIT License - see below for details:
-
-```
-MIT License
-
-Copyright (c) 2024 Wedding Uploader Contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+This project is licensed under The Unlicense License. You are free to use, destribute, sell or otherwise do whatever you would like with this code and the creator can not be held liable for anything.
 
 ## Support
 
@@ -740,4 +718,4 @@ Built with:
 
 ---
 
-**Made with ❤️ for preserving beautiful wedding memories**
+**Made with ❤️ by Steven Olsen**
